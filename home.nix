@@ -18,7 +18,7 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  imports = [./waybar/waybar.nix ./rofi/rofi.nix ./riverwm.nix ./kitty.nix ./mako.nix ./fuzzel.nix];
+  imports = [./waybar/waybar.nix ./rofi/rofi.nix ./riverwm.nix ./kitty.nix ./mako.nix ./fuzzel.nix ./eww/eww.nix ./neovim.nix];
 
   #dotfiles
   home.file = {
@@ -64,8 +64,6 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    pkgs.nerd-fonts.iosevka
-    pkgs.nerd-fonts.fira-code
      # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
      pkgs.balena-cli
      pkgs.wineWowPackages.waylandFull
@@ -121,6 +119,14 @@
      pkgs.swaybg
      pkgs.spicetify-cli
      pkgs.bore-cli
+     pkgs.zoxide
+     pkgs.kotlin-language-server
+     pkgs.fermyon-spin
+     pkgs.vscode-langservers-extracted
+     pkgs.emmet-language-server
+     pkgs.typescript-language-server
+     pkgs.bacon
+     pkgs.ncspot
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -139,8 +145,8 @@
     (pkgs.writeShellScriptBin "reload-wallpaper" ''
       pkill waybar
       pkill swaybg
-      niri msg action spawn -- waybar
-      niri msg action spawn -- swaybg --image ${./wallpapers/wallpaper.jpg}
+      $(niri msg action spawn -- waybar) || $(riverctl spawn waybar)
+      $(niri msg action spawn -- swaybg --image ${./wallpapers/wallpaper.jpg}) || $(riverctl spawn "swaybg --image ${./wallpapers/wallpaper.jpg}")
       makoctl reload
     '')
     (pkgs.writeShellScriptBin "keep-alive-satellite" ''
@@ -155,6 +161,10 @@
 
   programs.fish = {
     enable = true;
+    interactiveShellInit = ''
+       zoxide init fish | source
+       alias cd z
+    '';
   };
   programs.foot.enable = true;
 

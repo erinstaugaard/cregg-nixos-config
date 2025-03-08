@@ -80,7 +80,7 @@
   users.users.churst = {
     isNormalUser = true;
     description = "churst";
-    extraGroups = [ "networkmanager" "wheel" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "dialout" ];
     packages = with pkgs; [];
 
     
@@ -134,9 +134,17 @@
      #pkgs.pulseaudio
      pkgs.nix-search-cli
      pkgs.xwaylandvideobridge
-     pkgs.xdg-desktop-portal-hyprland
+     pkgs.xdg-desktop-portal-wlr
      pkgs.cmake
      pkgs.feh
+     pkgs.eww
+    pkgs.nerd-fonts.iosevka
+    pkgs.nerd-fonts.iosevka-term
+    pkgs.nerd-fonts.comic-shanns-mono
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.playerctl
+    pkgs.icu
+    # pkgs.nerd-fonts.fira-code
      # pkgs.niri-stable
 
   ];
@@ -150,12 +158,12 @@
   #   enableSSHSupport = true;
   # };
   #niri
-  programs.niri.enable = true;
+  # programs.niri.enable = true;
   # nixpkgs.overlays = [inputs.niri.overlays.niri];
   # programs.niri.settings = {
   # };
 
-  # programs.river.enable = true;
+  programs.river.enable = true;
 
   programs.hyprland = {
     enable = false;
@@ -174,9 +182,9 @@
   stylix.enable = true;
   stylix.image = ../wallpapers/wallpaper.jpg;
   stylix.polarity = "dark";
-  stylix.fonts.serif.name = "FiraCode";
-  stylix.fonts.serif.package = pkgs.nerd-fonts.fira-code;
-
+  stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
+  stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
 
 
   programs.nix-ld.enable = true;
@@ -256,7 +264,7 @@
   system.stateVersion = "24.05"; # Did you read the comment?
   
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
 
 
   #sound.enable = true;

@@ -1,8 +1,9 @@
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let config_path = ".config/river/init"; in
 {
   home.file = {
-    ".config/river/init" = {
+     "${config_path}" = {
         executable = true;
         text = ''
 #!/bin/sh
@@ -17,12 +18,13 @@
 
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
+
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-riverctl map normal Super+Shift Return spawn foot
-riverctl map normal Super+S Return spawn fuzzel
+riverctl map normal Super Q spawn kitty
+riverctl map normal Super S spawn fuzzel
 
 # Super+Q to close the focused view
-riverctl map normal Super Q close
+riverctl map normal Super+Shift C close
 
 # Super+Shift+E to exit river
 riverctl map normal Super+Shift E exit
@@ -52,8 +54,8 @@ riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
 
 # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+# riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
+# riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
 
 # Super+Alt+{H,J,K,L} to move views
 riverctl map normal Super+Alt H move left 100
@@ -162,13 +164,27 @@ riverctl set-repeat 50 300
 riverctl rule-add -app-id 'float*' -title 'foo' float
 
 # Make all views with app-id "bar" and any title use client-side decorations
-riverctl rule-add -app-id "bar" csd
+# riverctl rule-add -app-id "bar" csd
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 rivertile -view-padding 6 -outer-padding 6 &
+
+# riverctl spawn "swaybg --image ${./wallpapers/wallpaper.jpg}"
+riverctl spawn "swaybg --color ${config.lib.stylix.colors.base00}"
+riverctl spawn eww
+riverctl spawn mako
+riverctl map normal Super Tab spawn "bash ~/.config/eww/scripts/toggle.sh"
+riverctl map normal Super+Shift S spawn 'grim -g "$(slurp -d)" - | wl-copy'
         '';
     /* }; */
+    };
   };
-};}
+
+  home.activation = {
+   riverSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+     run ~/${config_path}
+  '';
+  };
+}
