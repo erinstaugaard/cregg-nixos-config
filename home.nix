@@ -65,8 +65,6 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
      # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
-     pkgs.swaylock
-     pkgs.swayidle
      pkgs.balena-cli
      pkgs.wineWowPackages.waylandFull
      pkgs.lutris
@@ -99,30 +97,30 @@
      pkgs.gradle_7
      pkgs.zulu21
      pkgs.ngrok
-     pkgs.scanmem
+     # pkgs.scanmem
      pkgs.geckodriver
      pkgs.lua
      pkgs.rust-bindgen
-     pkgs.blockbench
+     # pkgs.blockbench
      pkgs.dotnet-sdk_8
      pkgs.csharp-ls
      pkgs.vscode
-     pkgs.jetbrains.idea-community-bin
+     # pkgs.jetbrains.idea-community-bin
      pkgs.vesktop
      pkgs.zig
      pkgs.zls
      pkgs.idris
-     pkgs.hyprcursor
+     # pkgs.hyprcursor
      pkgs.idris2Packages.idris2Lsp
      # pkgs.ghc
      pkgs.stack
      pkgs.xwayland-satellite
-     pkgs.davinci-resolve
+     # pkgs.davinci-resolve
      pkgs.swaybg
-     pkgs.spicetify-cli
+     # pkgs.spicetify-cli
      pkgs.bore-cli
      pkgs.zoxide
-     pkgs.kotlin-language-server
+     # pkgs.kotlin-language-server
      pkgs.fermyon-spin
      pkgs.vscode-langservers-extracted
      pkgs.emmet-language-server
