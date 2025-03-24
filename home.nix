@@ -18,7 +18,7 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  imports = [./waybar/waybar.nix ./rofi/rofi.nix ./riverwm.nix ./kitty.nix ./mako.nix ./fuzzel.nix ./eww/eww.nix ./neovim.nix];
+  imports = [./riverwm.nix ./waybar/waybar.nix ./rofi/rofi.nix ./neovim.nix ./kitty.nix ./mako.nix ./fuzzel.nix ]; #./eww/eww.nix ];
 
   #dotfiles
   home.file = {
@@ -65,6 +65,8 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
      # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
+     pkgs.swaylock
+     pkgs.swayidle
      pkgs.balena-cli
      pkgs.wineWowPackages.waylandFull
      pkgs.lutris
@@ -170,50 +172,50 @@
 
   
     
-  programs.niri.settings = {
-    spawn-at-startup = [ {command=["waybar"];} {command=["dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"];} {command=["keep-alive-satellite"];} {command=["swaybg" "--image" "${./wallpapers/wallpaper.jpg}"];} {command=["nm-applet"];} {command=["kitty"];}{command=["foot"];}];
-    environment = {
-      DISPLAY = ":0";
-    };
-    window-rules = [
-      {
-        draw-border-with-background = true;
-        geometry-corner-radius = let r = 25.0; in {
-          top-left = r;
-          top-right = r;
-          bottom-left = r;
-          bottom-right = r;
-        };
-        clip-to-geometry = true;
-      }
-    ];
-    prefer-no-csd = true;
-    binds =  with config.lib.niri.actions; {
-        "Mod+S".action = spawn "fuzzel";
-        "Mod+Q".action = spawn "kitty";
-        "Mod+T".action = spawn "foot";
-        "Mod+F".action = maximize-column;
-        "Mod+Shift+F".action = fullscreen-window;
-        "Mod+Shift+C".action = close-window;
-        "Mod+Right".action = focus-column-right;
-        "Mod+Left".action = focus-column-left;
-        "Mod+Down".action = focus-window-down;
-        "Mod+Up".action = focus-window-up;
-        "Mod+Shift+Right".action = focus-monitor-right;
-        "Mod+Shift+Left".action = focus-monitor-left;
-        "Mod+Shift+Down".action = focus-workspace-down;
-        "Mod+Shift+Up".action = focus-workspace-up;
-        "Mod+Ctrl+Shift+E".action = quit;
-        "Mod+Ctrl+Shift+H".action = show-hotkey-overlay;
-        "Mod+Ctrl+Right".action = consume-or-expel-window-right;
-        "Mod+Ctrl+Left".action = consume-or-expel-window-left;
-        "Mod+Ctrl+Shift+Right".action = move-column-right-or-to-monitor-right;
-        "Mod+Ctrl+Shift+Left".action = move-column-left-or-to-monitor-left;
-        "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
-        "Mod+Ctrl+Shift+Up".action = move-window-up-or-to-workspace-up;
-        "Mod+Shift+S".action = screenshot;
-    };
-  };
+  # programs.niri.settings = {
+  #   spawn-at-startup = [ {command=["waybar"];} {command=["dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"];} {command=["keep-alive-satellite"];} {command=["swaybg" "--image" "${./wallpapers/wallpaper.jpg}"];} {command=["nm-applet"];} {command=["kitty"];}{command=["foot"];}];
+  #   environment = {
+  #     DISPLAY = ":0";
+  #   };
+  #   window-rules = [
+  #     {
+  #       draw-border-with-background = true;
+  #       geometry-corner-radius = let r = 25.0; in {
+  #         top-left = r;
+  #         top-right = r;
+  #         bottom-left = r;
+  #         bottom-right = r;
+  #       };
+  #       clip-to-geometry = true;
+  #     }
+  #   ];
+  #   prefer-no-csd = true;
+  #   binds =  with config.lib.niri.actions; {
+  #       "Mod+S".action = spawn "fuzzel";
+  #       "Mod+Q".action = spawn "kitty";
+  #       "Mod+T".action = spawn "foot";
+  #       "Mod+F".action = maximize-column;
+  #       "Mod+Shift+F".action = fullscreen-window;
+  #       "Mod+Shift+C".action = close-window;
+  #       "Mod+Right".action = focus-column-right;
+  #       "Mod+Left".action = focus-column-left;
+  #       "Mod+Down".action = focus-window-down;
+  #       "Mod+Up".action = focus-window-up;
+  #       "Mod+Shift+Right".action = focus-monitor-right;
+  #       "Mod+Shift+Left".action = focus-monitor-left;
+  #       "Mod+Shift+Down".action = focus-workspace-down;
+  #       "Mod+Shift+Up".action = focus-workspace-up;
+  #       "Mod+Ctrl+Shift+E".action = quit;
+  #       "Mod+Ctrl+Shift+H".action = show-hotkey-overlay;
+  #       "Mod+Ctrl+Right".action = consume-or-expel-window-right;
+  #       "Mod+Ctrl+Left".action = consume-or-expel-window-left;
+  #       "Mod+Ctrl+Shift+Right".action = move-column-right-or-to-monitor-right;
+  #       "Mod+Ctrl+Shift+Left".action = move-column-left-or-to-monitor-left;
+  #       "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
+  #       "Mod+Ctrl+Shift+Up".action = move-window-up-or-to-workspace-up;
+  #       "Mod+Shift+S".action = screenshot;
+  #   };
+  # };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

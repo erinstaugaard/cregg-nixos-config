@@ -3,7 +3,7 @@
 { config, pkgs, ... }:
 {
   home.file = {
-    "/home/churst/.config/nvim/lua/custom/plugins/init.lua" = {
+    "/home/churst/.config/nvim/lua/custom/plugins/colors.lua" = {
         text = ''
 return {
   base00 = '#${config.lib.stylix.colors.base00}', base01 = '#${config.lib.stylix.colors.base01}', base02 = '#${config.lib.stylix.colors.base02}', base03 = '#${config.lib.stylix.colors.base03}',

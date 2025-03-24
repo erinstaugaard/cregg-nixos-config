@@ -11,6 +11,16 @@
     ];
 
 
+  #styling
+  stylix.enable = true;
+  stylix.image = ../wallpapers/wallpaper.jpg;
+  # stylix.image = "";
+  # stylix.polarity = "dark";
+  stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
+  stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-mirage.yaml";
+
+
 
   # Bootloader.
   # boot.loader.grub.enable = true;
@@ -128,12 +138,12 @@
      wget
      swaybg
      # hyprpaper
-     #pkgs.home-manager
+     pkgs.home-manager
      mangohud
      protonup
      #pkgs.pulseaudio
      pkgs.nix-search-cli
-     pkgs.xwaylandvideobridge
+     # pkgs.xwaylandvideobridge
      pkgs.xdg-desktop-portal-wlr
      pkgs.cmake
      pkgs.feh
@@ -144,11 +154,12 @@
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.playerctl
     pkgs.icu
+    pkgs.swayidle
     # pkgs.nerd-fonts.fira-code
      # pkgs.niri-stable
 
   ];
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -178,13 +189,6 @@
 
   programs.noisetorch.enable = true;
 
-  #styling
-  stylix.enable = true;
-  stylix.image = ../wallpapers/wallpaper.jpg;
-  stylix.polarity = "dark";
-  stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
-  stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
 
 
   programs.nix-ld.enable = true;

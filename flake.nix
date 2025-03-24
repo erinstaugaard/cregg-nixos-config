@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.11";
     niri.url = "github:sodiboo/niri-flake";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -24,15 +24,22 @@
       };
     in 
     {
+      # homeConfigurations."churst" = home-manager.lib.homeManagerConfiguration {
+      #   inherit pkgs;
+      #   modules = [
+      #     ./home.nix
+      #     inputs.stylix.homeManagerModules.stylix
+      #   ];
+      # };
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           #specialArgs = { inherit system; }; 
           
 
           modules = [
+          inputs.stylix.nixosModules.stylix
+          inputs.niri.nixosModules.niri
             ./nixos/configuration.nix
-            inputs.stylix.nixosModules.stylix
-            inputs.niri.nixosModules.niri
 
             home-manager.nixosModules.home-manager {
               home-manager.backupFileExtension = "hm-backup";
