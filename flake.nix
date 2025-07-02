@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stylix.url = "github:danth/stylix/release-24.11";
     niri.url = "github:sodiboo/niri-flake";
+    ssbbm-nix.url = "github:normalfall/ssbm-nix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +18,6 @@
       pkgs = import nixpkgs {
         inherit system;
 
-        overlays = [ ./pkgs ];
 
         config = {
           allowUnfree = true;
@@ -34,7 +34,7 @@
       # };
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          #specialArgs = { inherit system; }; 
+          specialArgs = { inherit system; }; 
           
 
           modules = [
