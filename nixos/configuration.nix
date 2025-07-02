@@ -18,7 +18,12 @@
   # stylix.polarity = "dark";
   stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
   stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-mirage.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/eris.yaml";
+  stylix.cursor = {
+    name = "Bibata";
+    package = pkgs.bibata-cursors;
+    size = 32;
+  };
 
 
 
@@ -84,6 +89,13 @@
     #     ];
     # };
   };
+  services.postgresql = {
+    enable = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
+  };
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -102,6 +114,7 @@
 
   services.flatpak.enable = true;
   services.teamviewer.enable = true;
+  services.usbmuxd.enable = true;
 
 
   # List packages installed in system profile. To search, run:
@@ -109,6 +122,7 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+     pkgs.slippi
      vim
      wl-clipboard
      pkgs.font-awesome
@@ -155,6 +169,7 @@
     pkgs.playerctl
     pkgs.icu
     pkgs.swayidle
+    pkgs.kanshi
     # pkgs.nerd-fonts.fira-code
      # pkgs.niri-stable
 
@@ -234,8 +249,14 @@
     nvidia.open = false;
     nvidia.nvidiaSettings = true;
     nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
   };
   services.xserver.videoDrivers = ["nvidia"];
+
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # services.greetd = {
   #   enable = true;
@@ -252,6 +273,7 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

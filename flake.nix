@@ -17,10 +17,11 @@
       pkgs = import nixpkgs {
         inherit system;
 
+        overlays = [ ./pkgs ];
+
         config = {
           allowUnfree = true;
         };
-        # overlays = [inputs.niri.overlays.niri];
       };
     in 
     {

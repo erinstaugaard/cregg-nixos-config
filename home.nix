@@ -65,6 +65,13 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
      # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
+     pkgs.godot
+     pkgs.haskell-language-server
+     pkgs.cabal-install
+     pkgs.ghc
+     pkgs.fzf
+     pkgs.flatpak-builder
+     pkgs.direnv
      pkgs.balena-cli
      pkgs.wineWowPackages.waylandFull
      pkgs.lutris
@@ -127,6 +134,14 @@
      pkgs.typescript-language-server
      pkgs.bacon
      pkgs.ncspot
+     pkgs.fastfetch
+     pkgs.ocamlPackages.utop
+     pkgs.dune_3
+     pkgs.ocamlPackages.ocaml-lsp
+     pkgs.ocamlformat
+     pkgs.ocaml
+     pkgs.libimobiledevice
+     pkgs.gthumb
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -161,12 +176,38 @@
 
   programs.fish = {
     enable = true;
+    functions.fish_greeting = ''
+      fastfetch
+    '';
     interactiveShellInit = ''
        zoxide init fish | source
        alias cd z
+       alias nvim "neovide --fork"
+       direnv hook fish | source
+       bind ctrl-a "notify-send cool message"
+       bind ctrl-p "kak \$(fzf)"
+
     '';
   };
   programs.foot.enable = true;
+  
+
+  # home.pointerCursor = {
+  #   name = "Bibata";
+  #   size = 32;
+  #   package = pkgs.bibata-cursors;
+  #   x11.enable = true;
+  #   gtk.enable = true;
+  # };
+  #
+  # gtk = {
+  #   enable = true;
+  #   cursorTheme = {
+  #     name = "Bibata";
+  #     size = 32;
+  #     package= pkgs.bibata-cursors;
+  #   };
+  # };
 
   
     
@@ -251,6 +292,7 @@
   };
   home.sessionPath = [
     "/home/churst/.onyx/bin"
+    "/home/churst/.cargo/bin"
   ];
 
 
