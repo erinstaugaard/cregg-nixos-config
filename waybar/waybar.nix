@@ -1,48 +1,71 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   programs.waybar = {
     enable = true;
     # package = pkgs.waybar;
-    settings = [{
-      layer = "top";
-      position = "top";
-      modules-left = [ "custom/power" "hyprland/workspaces" ];
-      modules-center = [ "clock" ];
-      modules-right = [  "pulseaudio" "network" "battery" "tray"];
-      "hyprland/workspaces" = {
-        "on-click" = "activate";
-        "all-outputs" = true;
-      };
-      "custom/power" = {
-        "on-click" = "bash ~/.config/waybar/power.sh";
-        format = "<span color='#${config.lib.stylix.colors.base05}'>   </span>";
-      };
-      clock = {
-        format = "  {:%a %b %d  %I:%M %p}";
-        tooltip = true;
-      };
-      battery = {
-        format = "{capacity}%  ";
-      };
-      network = {
-        interface = "wlo1";
-        format = "{ifname}";
-        format-wifi = "<span color='#${config.lib.stylix.colors.base05}'>  </span>{essid}";
-        format-ethernet = "{ipaddr}/{cidr}";
-        format-disconnected = "<span color='#${config.lib.stylix.colors.base05}'>󰖪 </span>No Network";
-        tooltip = false;
-      };
-      pulseaudio = {
-        format = "<span color='#${config.lib.stylix.colors.base05}'>{icon} </span> {volume}%";
-        format-muted = "";
-        tooltip = false;
-        format-icons = {
-          headphone = "";
-          default = ["" "" "󰕾" "󰕾" "󰕾" "" "" ""];
+    settings = [
+      {
+        layer = "top";
+        position = "top";
+        modules-left = [
+          "custom/power"
+          "hyprland/workspaces"
+        ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "battery"
+          "tray"
+        ];
+        "hyprland/workspaces" = {
+          "on-click" = "activate";
+          "all-outputs" = true;
         };
-        scroll-step = 1;
-      };
-    }];
+        "custom/power" = {
+          "on-click" = "bash ~/.config/waybar/power.sh";
+          format = "<span color='#${config.lib.stylix.colors.base05}'></span>";
+        };
+        clock = {
+          format = "  {:%a %b %d  %I:%M %p}";
+          tooltip = true;
+        };
+        battery = {
+          format = "{capacity}%  ";
+        };
+        network = {
+          interface = "wlo1";
+          format = "{ifname}";
+          format-wifi = "<span color='#${config.lib.stylix.colors.base05}'>  </span>{essid}";
+          format-ethernet = "{ipaddr}/{cidr}";
+          format-disconnected = "<span color='#${config.lib.stylix.colors.base05}'>󰖪 </span>No Network";
+          tooltip = false;
+        };
+        pulseaudio = {
+          format = "<span color='#${config.lib.stylix.colors.base05}'>{icon} </span> {volume}%";
+          format-muted = "";
+          tooltip = false;
+          format-icons = {
+            headphone = "";
+            default = [
+              ""
+              ""
+              "󰕾"
+              "󰕾"
+              "󰕾"
+              ""
+              ""
+              ""
+            ];
+          };
+          scroll-step = 1;
+        };
+      }
+    ];
 
     style = ''
       * {
@@ -65,8 +88,8 @@
         margin-top: 15px;
         margin-right: 15px;
         padding-top: 1px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 20px;
+        padding-right: 28px;
       }
 
       #custom-power {
@@ -116,6 +139,6 @@
       #clock > *:nth-child(1) {
         margin-right: 20px;
       }
-    ''; 
+    '';
   };
 }

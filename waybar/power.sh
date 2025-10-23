@@ -1,4 +1,4 @@
-response=$((echo "Power Off" && echo "Cancel") | rofi -dmenu)
+response=$((echo "Power Off" && echo "Cancel") | fuzzel -dmenu)
 
 if [[ $response == "Power Off" ]]; then
 	poweroff

@@ -1,3 +1,3 @@
 final: prev: {
-	slippi = prev.callPackage ./slippi {};
+  slippi = prev.callPackage ./slippi {};
 }

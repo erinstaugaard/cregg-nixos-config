@@ -1,13 +1,13 @@
-{ config, pkgs, ... }:
-
 {
-
-
+  config,
+  pkgs,
+  ...
+}@inputs:
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "churst";
   home.homeDirectory = "/home/churst";
-
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -18,31 +18,39 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  imports = [./riverwm.nix ./waybar/waybar.nix ./rofi/rofi.nix ./neovim.nix ./kitty.nix ./mako.nix ./fuzzel.nix ]; #./eww/eww.nix ];
+  imports = [
+    ./riverwm.nix
+    ./waybar/waybar.nix
+    ./rofi/rofi.nix
+    ./neovim.nix
+    ./kitty.nix
+    ./mako.nix
+    ./fuzzel.nix
+  ]; # ./eww/eww.nix ];
 
   #dotfiles
   home.file = {
     # ".config/hypr/hyprland.conf" = {
     #   source = ''
-    #     
+    #
     #   '';
     #   #config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/hyprland.conf";
     # };
     # ".config/hypr/hyprpaper.conf" = {
     #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/hyprpaper.conf";
     # };
-    # ".config/waybar/power.sh" = {
-    #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/power.sh";
+    ".config/waybar/power.sh" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${./.}/waybar/power.sh";
+    };
+    # ".config/hypr/start.sh" = {
+    #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/start.sh";
     # };
-    ".config/hypr/start.sh" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/start.sh";
-    };
-    ".config/hypr/audio.sh" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/audio.sh";
-    };
-    "wallpapers/wallpaper.jpg" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/wallpaper.jpg";
-    };
+    # ".config/hypr/audio.sh" = {
+    #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/audio.sh";
+    # };
+    # "wallpapers/wallpaper.jpg" = {
+    #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/hypr/wallpaper.jpg";
+    # };
     # ".config/rofi/config.rasi" = {
     #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/rofi/config.rasi";
     # };
@@ -50,7 +58,6 @@
     #   source = config.lib.file.mkOutOfStoreSymlink "/home/churst/.config/home-manager/waybar/";
     # };
   };
-
 
   fonts.fontconfig.enable = true;
 
@@ -64,84 +71,88 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-     # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
-     pkgs.godot
-     pkgs.haskell-language-server
-     pkgs.cabal-install
-     pkgs.ghc
-     pkgs.fzf
-     pkgs.flatpak-builder
-     pkgs.direnv
-     pkgs.balena-cli
-     pkgs.wineWowPackages.waylandFull
-     pkgs.lutris
-     pkgs.kakoune
-     pkgs.spotify
-     # pkgs.google-chrome
-     pkgs.appimage-run
-     pkgs.p7zip
-     pkgs.discord
-     pkgs.zellij
-     pkgs.odin
-     pkgs.ols
-     pkgs.rustup
-     pkgs.nodejs_20
-     pkgs.zlib
-     pkgs.nodePackages.svelte-language-server
-     pkgs.python3
-     pkgs.rare
-     pkgs.heroic
-     pkgs.opam
-     pkgs.gnumake42
-     pkgs.neovide
-     pkgs.ldtk
-     pkgs.mold
-     # pkgs.clang
-     # pkgs.rocmPackages_5.llvm.clang-unwrapped
-     pkgs.obs-studio
-     pkgs.kdePackages.dolphin
-     pkgs.alacritty
-     pkgs.gradle_7
-     pkgs.zulu21
-     pkgs.ngrok
-     # pkgs.scanmem
-     pkgs.geckodriver
-     pkgs.lua
-     pkgs.rust-bindgen
-     # pkgs.blockbench
-     pkgs.dotnet-sdk_8
-     pkgs.csharp-ls
-     pkgs.vscode
-     # pkgs.jetbrains.idea-community-bin
-     pkgs.vesktop
-     pkgs.zig
-     pkgs.zls
-     pkgs.idris
-     # pkgs.hyprcursor
-     pkgs.idris2Packages.idris2Lsp
-     # pkgs.ghc
-     pkgs.stack
-     pkgs.xwayland-satellite
-     # pkgs.davinci-resolve
-     pkgs.swaybg
-     # pkgs.spicetify-cli
-     pkgs.bore-cli
-     pkgs.zoxide
-     # pkgs.kotlin-language-server
-     pkgs.fermyon-spin
-     pkgs.vscode-langservers-extracted
-     pkgs.emmet-language-server
-     pkgs.typescript-language-server
-     pkgs.bacon
-     pkgs.ncspot
-     pkgs.fastfetch
-     pkgs.ocamlPackages.utop
-     pkgs.dune_3
-     pkgs.ocamlPackages.ocaml-lsp
-     pkgs.ocamlformat
-     pkgs.ocaml
-     pkgs.libimobiledevice
-     pkgs.gthumb
+    # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
+    pkgs.tetrio-desktop
+    pkgs.dolphin-emu
+    pkgs.godot
+    pkgs.haskell-language-server
+    pkgs.cabal-install
+    pkgs.ghc
+    pkgs.fzf
+    pkgs.flatpak-builder
+    pkgs.direnv
+    pkgs.balena-cli
+    pkgs.wineWowPackages.waylandFull
+    pkgs.lutris
+    pkgs.kakoune
+    pkgs.spotify
+    # pkgs.google-chrome
+    pkgs.appimage-run
+    pkgs.p7zip
+    pkgs.discord
+    pkgs.zellij
+    pkgs.odin
+    pkgs.ols
+    pkgs.rustup
+    pkgs.nodejs_20
+    pkgs.zlib
+    pkgs.nodePackages.svelte-language-server
+    pkgs.python3
+    pkgs.rare
+    pkgs.heroic
+    pkgs.opam
+    pkgs.gnumake42
+    pkgs.neovide
+    pkgs.ldtk
+    pkgs.mold
+    # pkgs.clang
+    # pkgs.rocmPackages_5.llvm.clang-unwrapped
+    pkgs.obs-studio
+    pkgs.kdePackages.dolphin
+    pkgs.alacritty
+    pkgs.gradle_7
+    # pkgs.zulu17
+    pkgs.ngrok
+    # pkgs.scanmem
+    pkgs.geckodriver
+    pkgs.lua
+    pkgs.rust-bindgen
+    # pkgs.blockbench
+    pkgs.dotnet-sdk_8
+    pkgs.csharp-ls
+    # pkgs.vscode
+    # pkgs.jetbrains.idea-community-bin
+    pkgs.vesktop
+    pkgs.zig
+    pkgs.zls
+    pkgs.idris
+    # pkgs.hyprcursor
+    pkgs.idris2Packages.idris2Lsp
+    # pkgs.ghc
+    pkgs.stack
+    pkgs.xwayland-satellite
+    # pkgs.davinci-resolve
+    pkgs.swaybg
+    # pkgs.spicetify-cli
+    pkgs.bore-cli
+    pkgs.zoxide
+    # pkgs.kotlin-language-server
+    pkgs.fermyon-spin
+    pkgs.vscode-langservers-extracted
+    pkgs.emmet-language-server
+    pkgs.typescript-language-server
+    pkgs.bacon
+    pkgs.ncspot
+    pkgs.fastfetch
+    pkgs.ocamlPackages.utop
+    pkgs.dune_3
+    pkgs.ocamlPackages.ocaml-lsp
+    pkgs.ocamlformat
+    pkgs.ocaml
+    pkgs.libimobiledevice
+    pkgs.gthumb
+    pkgs.nil
+    pkgs.jdt-language-server
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -171,7 +182,6 @@
         notify-send "Restaring xwayland satellite"
       done
     '')
-
   ];
 
   programs.fish = {
@@ -180,17 +190,16 @@
       fastfetch
     '';
     interactiveShellInit = ''
-       zoxide init fish | source
-       alias cd z
-       alias nvim "neovide --fork"
-       direnv hook fish | source
-       bind ctrl-a "notify-send cool message"
-       bind ctrl-p "kak \$(fzf)"
+      zoxide init fish | source
+      alias cd z
+      alias nvim "neovide --fork"
+      direnv hook fish | source
+      bind ctrl-a "notify-send cool message"
+      bind ctrl-p "kak \$(fzf)"
 
     '';
   };
   programs.foot.enable = true;
-  
 
   # home.pointerCursor = {
   #   name = "Bibata";
@@ -209,8 +218,6 @@
   #   };
   # };
 
-  
-    
   # programs.niri.settings = {
   #   spawn-at-startup = [ {command=["waybar"];} {command=["dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"];} {command=["keep-alive-satellite"];} {command=["swaybg" "--image" "${./wallpapers/wallpaper.jpg}"];} {command=["nm-applet"];} {command=["kitty"];}{command=["foot"];}];
   #   environment = {
@@ -271,9 +278,6 @@
     # '';
   };
   programs.bash.initExtra = "fish";
-  
-  
-  
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home
@@ -288,14 +292,12 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
-    ONYX_PATH="/home/churst/.onyx";
+    ONYX_PATH = "/home/churst/.onyx";
   };
   home.sessionPath = [
     "/home/churst/.onyx/bin"
     "/home/churst/.cargo/bin"
   ];
-
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

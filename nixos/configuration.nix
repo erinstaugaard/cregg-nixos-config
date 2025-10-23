@@ -1,31 +1,34 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs,  ... }@inputs:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-     ./hardware-configuration.nix
-    ];
-
+  config,
+  pkgs,
+  ...
+}@inputs:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.ssbm-nix.overlay
+  ];
+  # nixpkgs.overlays = [inputs.frc-nix.overlays.default];
 
   #styling
   stylix.enable = true;
   stylix.image = ../wallpapers/wallpaper.jpg;
   # stylix.image = "";
   # stylix.polarity = "dark";
-  stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
-  stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/eris.yaml";
+  # stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
+  # stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
+  stylix.fonts.serif.name = "JetBrainsMono Nerd Font";
+  stylix.fonts.serif.package = pkgs.nerd-fonts.jetbrains-mono;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/heetch.yaml";
   stylix.cursor = {
     name = "Bibata";
     package = pkgs.bibata-cursors;
     size = 32;
   };
-
-
 
   # Bootloader.
   # boot.loader.grub.enable = true;
@@ -97,15 +100,17 @@
     '';
   };
 
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.churst = {
     isNormalUser = true;
     description = "churst";
-    extraGroups = [ "networkmanager" "wheel" "audio" "dialout" ];
-    packages = with pkgs; [];
-
-    
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "dialout"
+    ];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -116,51 +121,52 @@
   services.teamviewer.enable = true;
   services.usbmuxd.enable = true;
 
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-     vim
-     wl-clipboard
-     pkgs.font-awesome
-     pkgs.gh
-     pkgs.unixtools.whereis
-     # home-manager
-     neovim
-     pkgs.grim
-     pkgs.slurp
-     git
-     kitty
-     pkgs.pw-volume
-     pkgs.waybar
-     (pkgs.waybar.overrideAttrs (oldAttrs: {
-         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-       })
-     )
-     pkgs.mako
-     libnotify
-     firefox
-     pkgs.networkmanagerapplet
-     unzip
-     greetd.greetd
-     greetd.tuigreet
-     gcc
-     zsh 
-     wget
-     swaybg
-     # hyprpaper
-     pkgs.home-manager
-     mangohud
-     protonup
-     #pkgs.pulseaudio
-     pkgs.nix-search-cli
-     # pkgs.xwaylandvideobridge
-     pkgs.xdg-desktop-portal-wlr
-     pkgs.cmake
-     pkgs.feh
-     pkgs.eww
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    slippi-launcher
+    vim
+    wl-clipboard
+    pkgs.font-awesome
+    pkgs.gh
+    pkgs.unixtools.whereis
+    # home-manager
+    neovim
+    pkgs.grim
+    pkgs.slurp
+    git
+    kitty
+    pkgs.pw-volume
+    pkgs.waybar
+    (pkgs.waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    }))
+    pkgs.mako
+    libnotify
+    firefox
+    pkgs.networkmanagerapplet
+    unzip
+    greetd.greetd
+    greetd.tuigreet
+    gcc
+    zsh
+    wget
+    swaybg
+    # hyprpaper
+    pkgs.home-manager
+    mangohud
+    protonup
+    #pkgs.pulseaudio
+    pkgs.nix-search-cli
+    # pkgs.xwaylandvideobridge
+    pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal
+    pkgs.cmake
+    pkgs.feh
+    pkgs.eww
     pkgs.nerd-fonts.iosevka
     pkgs.nerd-fonts.iosevka-term
     pkgs.nerd-fonts.comic-shanns-mono
@@ -169,11 +175,19 @@
     pkgs.icu
     pkgs.swayidle
     pkgs.kanshi
+    pkgs.java-language-server
+    alejandra
     # pkgs.nerd-fonts.fira-code
-     # pkgs.niri-stable
-
+    # pkgs.niri-stable
   ];
   services.pulseaudio.enable = false;
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 1w --keep 3";
+    flake = "${./.}";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -184,7 +198,6 @@
   # };
   #niri
   # programs.niri.enable = true;
-  # nixpkgs.overlays = [inputs.niri.overlays.niri];
   # programs.niri.settings = {
   # };
 
@@ -203,15 +216,13 @@
 
   programs.noisetorch.enable = true;
 
-
-
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libxcb
-      xorg.libXi
-      libxkbcommon
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libxcb
+    xorg.libXi
+    libxkbcommon
   ];
 
   environment.sessionVariables = {
@@ -227,16 +238,17 @@
   };
 
   programs.gamemode = {
-  	enable = true;
+    enable = true;
   };
   programs.steam = {
-  	enable = true;
-	gamescopeSession.enable = true;
-	package = pkgs.steam.override {
-		extraPkgs = (pkgs: with pkgs; [
-			gamemode
-		]);
-	};
+    enable = true;
+    gamescopeSession.enable = true;
+    package = pkgs.steam.override {
+      extraPkgs =
+        pkgs: with pkgs; [
+          gamemode
+        ];
+    };
   };
   hardware = {
     graphics = {
@@ -248,10 +260,8 @@
     nvidia.open = false;
     nvidia.nvidiaSettings = true;
     nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
   };
-  services.xserver.videoDrivers = ["nvidia"];
-
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -273,7 +283,6 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -287,10 +296,13 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
 
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [
+    pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal
+  ];
 
   #sound.enable = true;
   security.rtkit.enable = true;
@@ -302,5 +314,8 @@
     jack.enable = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }
