@@ -31,11 +31,12 @@
   };
 
   # Bootloader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "nodev";
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.useOSProber = true;
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub = {
+    enable = config.mysystem.grub;
+    device = "nodev";
+    efiSupport = true;
+    theme = "${pkgs.minimal-grub-theme}/";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -189,6 +190,24 @@
     flake = "${./.}";
   };
 
+  boot = {
+    initrd.systemd.enable = true;
+
+    plymouth = {
+      enable = true;
+      theme = "ibm";
+      themePackages = with pkgs; [
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "ibm" ];
+        })
+      ];
+    };
+
+    kernelParams = [
+      "boot.shell_on_fail"
+      "plymouth.use-simpledrm"
+    ];
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
