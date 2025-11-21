@@ -26,7 +26,8 @@
     ./kitty.nix
     ./mako.nix
     ./fuzzel.nix
-  ]; # ./eww/eww.nix ];
+    ./eww/eww.nix
+  ];
 
   #dotfiles
   home.file = {
@@ -72,6 +73,7 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
+    pkgs.inkscape
     pkgs.tetrio-desktop
     pkgs.dolphin-emu
     pkgs.godot
@@ -105,6 +107,7 @@
     pkgs.neovide
     pkgs.ldtk
     pkgs.mold
+    pkgs.eww
     # pkgs.clang
     # pkgs.rocmPackages_5.llvm.clang-unwrapped
     pkgs.obs-studio
@@ -192,6 +195,7 @@
     interactiveShellInit = ''
       zoxide init fish | source
       alias cd z
+      alias clear "clear && printf '\033[2J\033[3J\033[1;1H'"
       alias nvim "neovide --fork"
       direnv hook fish | source
       bind ctrl-a "notify-send cool message"

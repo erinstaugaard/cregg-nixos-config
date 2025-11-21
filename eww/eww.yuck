@@ -1,0 +1,67 @@
+(defwidget wallpaper-info []
+  (box
+    :orientation "v"
+    :halign "start"
+    :valign "start"
+    (music_widget)
+    (weather_widget)
+  )
+)
+
+(defwindow wallpaper-info
+  :monitor 0
+  :stacking "bg"
+  :geometry (geometry :x "0px" :y "0px" :width "250px" :anchor "center")
+  (wallpaper-info))
+
+
+(defpoll weather :interval "5m"
+  `curl wttr.in/?format=j1`
+)
+
+
+(defwidget weather_widget []
+	(box :spacing "10"
+		:space-evenly "false"
+		;; (image :path "''${music_meta.image}")
+		;; (box :class "day_month"(label  :text "''${time.day}, ''${time.month} ''${time.day_number}"))
+		(box :class "time" :hexpand "true" :orientation "vertical" 
+		  (label :wrap "true" :text "${weather.nearest_area[0].areaName[0].value}")
+		  (label :wrap "true" :text "Feels like: ${weather.current_condition[0].FeelsLikeF} Actual: ${weather.current_condition[0].temp_F}")
+		  (label :wrap "true" :text "${weather.current_condition[0].weatherDesc[0].value}")
+		)
+	)
+)
+
+
+(defpoll music_meta :interval "5s"
+  `playerctl metadata -p spotify --format='{"title":"{{title}}","artist":"{{artist}}","length":"{{mpris:length}}","image":"{{mpris:artUrl}}"}'`
+)
+
+(defwidget music_widget []
+	(box :spacing "10"
+		:space-evenly "false"
+
+		;; (box :class "day_month"(label  :text "''${time.day}, ''${time.month} ''${time.day_number}"))
+		(box :class "time" :hexpand "true" :orientation "vertical" 
+		  (label :wrap "true" :text "${music_meta.title}")
+		  (label :wrap "true" :text "${music_meta.artist}")
+		)
+		(box :class "time" :orientation "vertical"
+			(box :orientation "horizontal"
+				(button
+					:onclick "playerctl play-pause -p spotify"
+					(label :text "${music_playing == "Playing" ? "⏸" : "⏵"}")
+				)
+			)
+		(progress :value "''${
+		  ((music_position * 1000000) / music_meta.length) * 100
+		}"))
+	)
+)
+(defpoll music_playing :interval "1s"
+  `playerctl status -p spotify`
+)
+(defpoll music_position :interval "1s"
+  `playerctl position -p spotify`
+)

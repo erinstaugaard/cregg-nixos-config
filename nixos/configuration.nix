@@ -14,22 +14,6 @@
   ];
   # nixpkgs.overlays = [inputs.frc-nix.overlays.default];
 
-  #styling
-  stylix.enable = true;
-  stylix.image = ../wallpapers/wallpaper.jpg;
-  # stylix.image = "";
-  # stylix.polarity = "dark";
-  # stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
-  # stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
-  stylix.fonts.serif.name = "JetBrainsMono Nerd Font";
-  stylix.fonts.serif.package = pkgs.nerd-fonts.jetbrains-mono;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/heetch.yaml";
-  stylix.cursor = {
-    name = "Bibata";
-    package = pkgs.bibata-cursors;
-    size = 32;
-  };
-
   # Bootloader.
   # boot.loader.grub.enable = true;
   # boot.loader.grub.device = "nodev";
@@ -155,7 +139,6 @@
     wget
     swaybg
     # hyprpaper
-    pkgs.home-manager
     mangohud
     protonup
     #pkgs.pulseaudio
@@ -166,7 +149,6 @@
     pkgs.xdg-desktop-portal
     pkgs.cmake
     pkgs.feh
-    pkgs.eww
     pkgs.nerd-fonts.iosevka
     pkgs.nerd-fonts.iosevka-term
     pkgs.nerd-fonts.comic-shanns-mono
