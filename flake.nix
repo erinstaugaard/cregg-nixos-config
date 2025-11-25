@@ -7,6 +7,7 @@
     niri.url = "github:sodiboo/niri-flake";
     ssbm-nix.url = "github:normalfall/ssbm-nix";
     frc-nix.url = "github:frc4451/frc-nix";
+    nixvim.url = "github:nix-community/nixvim";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,9 +35,10 @@
       homeConfigurations."churst" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
+          inputs.stylix.homeManagerModules.stylix
+          inputs.nixvim.homeModules.nixvim
           ./common.nix
           ./home.nix
-          inputs.stylix.homeManagerModules.stylix
         ];
       };
       nixosConfigurations = {

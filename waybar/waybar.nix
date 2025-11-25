@@ -13,7 +13,7 @@
         position = "top";
         modules-left = [
           "custom/power"
-          "hyprland/workspaces"
+          "river/tags"
         ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -22,9 +22,8 @@
           "battery"
           "tray"
         ];
-        "hyprland/workspaces" = {
-          "on-click" = "activate";
-          "all-outputs" = true;
+        "river/tags" = {
+          "hide-vacant" = true;
         };
         "custom/power" = {
           "on-click" = "bash ~/.config/waybar/power.sh";
@@ -98,9 +97,13 @@
         color: #${config.lib.stylix.colors.base00};
       }
 
-      #workspaces button {
-        background: #${config.lib.stylix.colors.base00};
-        color: #${config.lib.stylix.colors.base05};
+      #tags button {
+        margin-top: 15px;
+        background: none; 
+      }
+      #tags button.focused {
+        margin-top: 15px;
+        background-color: #${config.lib.stylix.colors.base00};
       }
 
       #clock, #backlight, #pulseaudio, #tray, #network, #battery{

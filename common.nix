@@ -12,12 +12,15 @@
   # stylix.polarity = "dark";
   # stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
   # stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
-  stylix.fonts.serif.name = "JetBrainsMono Nerd Font";
-  stylix.fonts.serif.package = pkgs.nerd-fonts.jetbrains-mono;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml"; # "${pkgs.base16-schemes}/share/themes/heetch.yaml";
+  # stylix.fonts.serif.name = "JetBrainsMono Nerd Font";
+  # stylix.fonts.serif.package = pkgs.nerd-fonts.jetbrains-mono;
+  stylix.fonts.serif.name = "MartianMono Nerd Font";
+  stylix.fonts.serif.package = pkgs.nerd-fonts.martian-mono;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/chinoiserie-morandi.yaml"; # "${pkgs.base16-schemes}/share/themes/heetch.yaml";
   stylix.cursor = {
     name = "Bibata";
     package = pkgs.bibata-cursors;
     size = 32;
   };
+
 }

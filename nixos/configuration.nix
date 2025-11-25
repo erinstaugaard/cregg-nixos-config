@@ -129,7 +129,6 @@
     }))
     pkgs.mako
     libnotify
-    firefox
     pkgs.networkmanagerapplet
     unzip
     greetd.greetd
@@ -140,7 +139,7 @@
     swaybg
     # hyprpaper
     mangohud
-    protonup
+    protonup-ng
     #pkgs.pulseaudio
     pkgs.nix-search-cli
     # pkgs.xwaylandvideobridge
@@ -157,7 +156,6 @@
     pkgs.icu
     pkgs.swayidle
     pkgs.kanshi
-    pkgs.java-language-server
     alejandra
     # pkgs.nerd-fonts.fira-code
     # pkgs.niri-stable
@@ -169,6 +167,10 @@
     clean.enable = true;
     clean.extraArgs = "--keep-since 1w --keep 3";
     flake = "${./.}";
+  };
+
+  programs.firefox = {
+    enable = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -183,7 +185,7 @@
   # programs.niri.settings = {
   # };
 
-  programs.river.enable = true;
+  programs.river-classic.enable = true;
 
   programs.hyprland = {
     enable = false;

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  riverctl = "${pkgs.river}/bin/riverctl";
+  riverctl = "${pkgs.river-classic}/bin/riverctl";
 in
 {
   xdg.configFile = {
