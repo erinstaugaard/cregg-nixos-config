@@ -11,7 +11,13 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.ssbm-nix.overlay
+
   ];
+
+  sops.secrets."wg_mc.yaml" = { };
+  sops.defaultSopsFile = ./secrets/wg_mc.yaml;
+  sops.age.keyFile = "/home/churst/.config/sops/age/keys.txt";
+  sops.age.generateKey = true;
   # nixpkgs.overlays = [inputs.frc-nix.overlays.default];
 
   # Bootloader.
@@ -115,6 +121,7 @@
     wl-clipboard
     pkgs.font-awesome
     pkgs.gh
+    glibc
     pkgs.unixtools.whereis
     # home-manager
     neovim
@@ -157,6 +164,7 @@
     pkgs.swayidle
     pkgs.kanshi
     alejandra
+    clang-tools
     # pkgs.nerd-fonts.fira-code
     # pkgs.niri-stable
   ];
@@ -207,6 +215,7 @@
     xorg.libxcb
     xorg.libXi
     libxkbcommon
+    stdenv.cc.cc
   ];
 
   environment.sessionVariables = {

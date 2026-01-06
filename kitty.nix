@@ -12,6 +12,7 @@
         foreground #${config.lib.stylix.colors.base05}
         shell fish
         confirm_os_window_close 0
+        allow_remote_control yes
       '';
     };
   };

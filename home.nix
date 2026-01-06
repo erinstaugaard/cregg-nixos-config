@@ -22,7 +22,8 @@
     ./riverwm.nix
     ./waybar/waybar.nix
     ./rofi/rofi.nix
-    ./nvim/nvim.nix
+    # ./nvim/nvim.nix
+    ./kakoune.nix
     ./kitty.nix
     ./mako.nix
     ./fuzzel.nix
@@ -73,6 +74,7 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
+    pkgs.wf-recorder
     pkgs.inkscape
     pkgs.tetrio-desktop
     pkgs.dolphin-emu
@@ -84,7 +86,7 @@
     pkgs.balena-cli
     pkgs.wineWowPackages.waylandFull
     pkgs.lutris
-    pkgs.kakoune
+    # pkgs.kakoune
     pkgs.spotify
     # pkgs.google-chrome
     pkgs.appimage-run
@@ -144,7 +146,7 @@
     pkgs.ocaml
     pkgs.libimobiledevice
     pkgs.gthumb
-    pkgs.nil
+    pkgs.uiua
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your

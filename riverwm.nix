@@ -190,6 +190,7 @@ in
         ${riverctl} spawn nm-applet
         # ${riverctl} map normal Super Tab spawn "bash ~/.config/eww/scripts/toggle.sh"
         ${riverctl} map normal Super+Shift S spawn 'grim -g "$(slurp -d)" - | wl-copy'
+        ${riverctl} map normal Super+Shift V spawn 'wf-recorder -g "$(slurp)" -f /tmp/recording.mp4'
         ${riverctl} spawn "swayidle -w timeout 300 'swaylock -f -c 000000'"
         ${riverctl} spawn "kanshi"
         # ${riverctl} xcursor-theme ${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}

@@ -8,6 +8,8 @@
     ssbm-nix.url = "github:normalfall/ssbm-nix";
     frc-nix.url = "github:frc4451/frc-nix";
     nixvim.url = "github:nix-community/nixvim";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,10 +48,12 @@
           specialArgs = inputs;
 
           modules = [
+            ./wiregaurd.nix
             inputs.stylix.nixosModules.stylix
             inputs.niri.nixosModules.niri
             ./common.nix
             ./nixos/configuration.nix
+            inputs.sops-nix.nixosModules.sops
 
             # home-manager.nixosModules.home-manager
             # {
