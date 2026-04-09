@@ -79,6 +79,7 @@
     pkgs.tetrio-desktop
     pkgs.dolphin-emu
     pkgs.godot
+    pkgs.go
     pkgs.ghc
     pkgs.fzf
     pkgs.flatpak-builder
@@ -252,7 +253,7 @@
   #       "Mod+Ctrl+Left".action = consume-or-expel-window-left;
   #       "Mod+Ctrl+Shift+Right".action = move-column-right-or-to-monitor-right;
   #       "Mod+Ctrl+Shift+Left".action = move-column-left-or-to-monitor-left;
-  #       "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
+#       "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
   #       "Mod+Ctrl+Shift+Up".action = move-window-up-or-to-workspace-up;
   #       "Mod+Shift+S".action = screenshot;
   #   };
@@ -288,6 +289,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     ONYX_PATH = "/home/churst/.onyx";
+    # BROWSER="firefox";
   };
   home.sessionPath = [
     "/home/churst/.onyx/bin"

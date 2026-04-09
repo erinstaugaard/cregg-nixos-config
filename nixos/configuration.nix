@@ -14,8 +14,8 @@
 
   ];
 
-  sops.secrets."wg_mc.yaml" = { };
-  sops.defaultSopsFile = ./secrets/wg_mc.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.defaultSopsFile = ../secrets/wg_mc.yaml;
   sops.age.keyFile = "/home/churst/.config/sops/age/keys.txt";
   sops.age.generateKey = true;
   # nixpkgs.overlays = [inputs.frc-nix.overlays.default];
@@ -151,7 +151,7 @@
     pkgs.nix-search-cli
     # pkgs.xwaylandvideobridge
     pkgs.xdg-desktop-portal-wlr
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
     pkgs.xdg-desktop-portal
     pkgs.cmake
     pkgs.feh
@@ -216,6 +216,7 @@
     xorg.libXi
     libxkbcommon
     stdenv.cc.cc
+    libGL
   ];
 
   environment.sessionVariables = {
@@ -291,11 +292,17 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   xdg.portal.enable = true;
+  xdg.portal.xdgOpenUsePortal = true;
   xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-wlr
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
     pkgs.xdg-desktop-portal
+    pkgs.xdg-desktop-portal-wlr
   ];
+  xdg.mime.defaultApplications = {
+
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+  };
 
   #sound.enable = true;
   security.rtkit.enable = true;

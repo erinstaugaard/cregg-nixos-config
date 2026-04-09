@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   home.file = {
     "/home/churst/.config/kitty/kitty.conf" = {
       executable = true;
@@ -13,6 +14,8 @@
         shell fish
         confirm_os_window_close 0
         allow_remote_control yes
+
+        map ctrl+tab launch --type os-window --cwd current
       '';
     };
   };

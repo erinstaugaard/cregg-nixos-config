@@ -56,6 +56,7 @@
     extraConfig = ''
       eval %sh{${pkgs.kakoune-lsp}/bin/kak-lsp}
       lsp-enable
+      lsp-inlay-hints-enable global
 
       set-option global modelinefmt "%opt{lsp_modeline} %opt{modelinefmt}"
 
@@ -90,6 +91,9 @@
   home.packages = [
     # pkgs.rust-analyzer
     pkgs.nil
+    pkgs.vscode-langservers-extracted
+    pkgs.jdt-language-server
+    pkgs.gopls
   ];
 
 }

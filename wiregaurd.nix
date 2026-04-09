@@ -8,10 +8,14 @@
 with builtins;
 with lib;
 {
+
   networking.firewall = {
+    allowedTCPPorts = [
+      12865
+    ];
     allowedUDPPorts = [
-      0000
       24454
+      5553
     ];
   };
 
@@ -30,7 +34,7 @@ with lib;
 
       peers = [
         {
-          publicKey = "1WNIMazFPdpTuFKnWEZDKDhTdJaI2lUR6aH1kEuKiBw=";
+          publicKey = "4OwrGOuxS93ICxQwJN+el4vyunkGlsaVOqHsXZNWnDM=";
           endpoint = "69.48.200.159:5180";
           allowedIPs = [ "100.64.0.0/24" ];
           persistentKeepalive = 25;
