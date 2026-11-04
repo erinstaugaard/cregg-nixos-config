@@ -1,14 +1,4 @@
-colorscheme dracula
-
-set-option global tabstop 2
-set-option global indentwidth 2
-set-option global scrolloff 5,1
-set-option global grepcmd 'rg --column'
-set-option global completers filename word=all
-set-option global startup_info_version 20420101
-set-option -add global matching_pairs ‹ › « » “ ” ‘ ’
-set-option -add global ui_options ncurses_assistant=none ncurses_change_colors=true ncurses_status_on_top=true
-
+colorscheme dracula set-option global tabstop 2 set-option global indentwidth 2 set-option global scrolloff 5,1 set-option global grepcmd 'rg --column' set-option global completers filename word=all set-option global startup_info_version 20420101 set-option -add global matching_pairs ‹ › « » “ ” ‘ ’ set-option -add global ui_options ncurses_assistant=none ncurses_change_colors=true ncurses_status_on_top=true
 define-command update-status %{ evaluate-commands %sh{
   printf %s 'set-option buffer modelinefmt %{'
   if [ "$kak_opt_lsp_diagnostic_error_count" -ne 0 ]; then

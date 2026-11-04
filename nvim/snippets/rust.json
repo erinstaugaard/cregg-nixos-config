@@ -1,0 +1,27 @@
+{
+    "main": {
+        "prefix": "main",
+        "body": ["fn main() {${1}}"],
+        "description": "fn main() {}"
+    },
+    "fn": {
+        "prefix": "fn",
+        "body": ["fn ${1}(${2}) {${3}}"],
+        "description": "fn ...() {}"
+    },
+    "bepr": {
+        "prefix": "bepr",
+        "body": ["use bevy::prelude::*;"],
+        "description": "use bevy::prelude::*;"
+    },
+    "anewbevy": {
+        "prefix": "anewbevy",
+        "body": ["App::new().add_plugins(DefaultPlugins).run();"],
+        "description": "App::new().add_plugins(DefaultPlugins).run();"
+    },
+    "bepl": {
+        "prefix": "bepl",
+        "body": ["pub struct ${1};\n\nimpl Plugin for ${1} {\n\tfn build(&self, app: &mut App) {\n\t\t${2}\t\n}\n}"],
+        "description": "App::new().add_plugins(DefaultPlugins).run();"
+    }
+}

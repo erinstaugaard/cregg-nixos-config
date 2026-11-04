@@ -22,11 +22,13 @@
     ./riverwm.nix
     ./waybar/waybar.nix
     ./rofi/rofi.nix
-    ./neovim.nix
+    # ./nvim/nvim.nix
+    ./kakoune.nix
     ./kitty.nix
     ./mako.nix
     ./fuzzel.nix
-  ]; # ./eww/eww.nix ];
+    ./eww/eww.nix
+  ];
 
   #dotfiles
   home.file = {
@@ -72,11 +74,12 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "Iosevka" "FiraCode" ]; })
+    pkgs.wf-recorder
+    pkgs.inkscape
     pkgs.tetrio-desktop
     pkgs.dolphin-emu
     pkgs.godot
-    pkgs.haskell-language-server
-    pkgs.cabal-install
+    pkgs.go
     pkgs.ghc
     pkgs.fzf
     pkgs.flatpak-builder
@@ -84,7 +87,7 @@
     pkgs.balena-cli
     pkgs.wineWowPackages.waylandFull
     pkgs.lutris
-    pkgs.kakoune
+    # pkgs.kakoune
     pkgs.spotify
     # pkgs.google-chrome
     pkgs.appimage-run
@@ -92,7 +95,6 @@
     pkgs.discord
     pkgs.zellij
     pkgs.odin
-    pkgs.ols
     pkgs.rustup
     pkgs.nodejs_20
     pkgs.zlib
@@ -105,12 +107,13 @@
     pkgs.neovide
     pkgs.ldtk
     pkgs.mold
+    pkgs.eww
     # pkgs.clang
     # pkgs.rocmPackages_5.llvm.clang-unwrapped
     pkgs.obs-studio
     pkgs.kdePackages.dolphin
     pkgs.alacritty
-    pkgs.gradle_7
+    pkgs.gradle_9
     # pkgs.zulu17
     pkgs.ngrok
     # pkgs.scanmem
@@ -119,17 +122,13 @@
     pkgs.rust-bindgen
     # pkgs.blockbench
     pkgs.dotnet-sdk_8
-    pkgs.csharp-ls
     # pkgs.vscode
     # pkgs.jetbrains.idea-community-bin
     pkgs.vesktop
     pkgs.zig
-    pkgs.zls
     pkgs.idris
     # pkgs.hyprcursor
-    pkgs.idris2Packages.idris2Lsp
     # pkgs.ghc
-    pkgs.stack
     pkgs.xwayland-satellite
     # pkgs.davinci-resolve
     pkgs.swaybg
@@ -138,21 +137,17 @@
     pkgs.zoxide
     # pkgs.kotlin-language-server
     pkgs.fermyon-spin
-    pkgs.vscode-langservers-extracted
     pkgs.emmet-language-server
-    pkgs.typescript-language-server
     pkgs.bacon
     pkgs.ncspot
     pkgs.fastfetch
     pkgs.ocamlPackages.utop
     pkgs.dune_3
-    pkgs.ocamlPackages.ocaml-lsp
     pkgs.ocamlformat
     pkgs.ocaml
     pkgs.libimobiledevice
     pkgs.gthumb
-    pkgs.nil
-    pkgs.jdt-language-server
+    pkgs.uiua
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -192,6 +187,7 @@
     interactiveShellInit = ''
       zoxide init fish | source
       alias cd z
+      alias clear "clear && printf '\033[2J\033[3J\033[1;1H'"
       alias nvim "neovide --fork"
       direnv hook fish | source
       bind ctrl-a "notify-send cool message"
@@ -257,7 +253,7 @@
   #       "Mod+Ctrl+Left".action = consume-or-expel-window-left;
   #       "Mod+Ctrl+Shift+Right".action = move-column-right-or-to-monitor-right;
   #       "Mod+Ctrl+Shift+Left".action = move-column-left-or-to-monitor-left;
-  #       "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
+#       "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
   #       "Mod+Ctrl+Shift+Up".action = move-window-up-or-to-workspace-up;
   #       "Mod+Shift+S".action = screenshot;
   #   };
@@ -293,6 +289,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     ONYX_PATH = "/home/churst/.onyx";
+    # BROWSER="firefox";
   };
   home.sessionPath = [
     "/home/churst/.onyx/bin"

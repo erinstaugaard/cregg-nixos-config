@@ -11,24 +11,14 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.ssbm-nix.overlay
-  ];
-  # nixpkgs.overlays = [inputs.frc-nix.overlays.default];
 
-  #styling
-  stylix.enable = true;
-  stylix.image = ../wallpapers/wallpaper.jpg;
-  # stylix.image = "";
-  # stylix.polarity = "dark";
-  # stylix.fonts.serif.name = "Iosevka Nerd Font Mono";
-  # stylix.fonts.serif.package = pkgs.nerd-fonts.iosevka;
-  stylix.fonts.serif.name = "JetBrainsMono Nerd Font";
-  stylix.fonts.serif.package = pkgs.nerd-fonts.jetbrains-mono;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/heetch.yaml";
-  stylix.cursor = {
-    name = "Bibata";
-    package = pkgs.bibata-cursors;
-    size = 32;
-  };
+  ];
+
+  sops.defaultSopsFormat = "yaml";
+  sops.defaultSopsFile = ../secrets/wg_mc.yaml;
+  sops.age.keyFile = "/home/churst/.config/sops/age/keys.txt";
+  sops.age.generateKey = true;
+  # nixpkgs.overlays = [inputs.frc-nix.overlays.default];
 
   # Bootloader.
   boot.loader.grub = {
@@ -132,6 +122,7 @@
     wl-clipboard
     pkgs.font-awesome
     pkgs.gh
+    glibc
     pkgs.unixtools.whereis
     # home-manager
     neovim
@@ -146,7 +137,6 @@
     }))
     pkgs.mako
     libnotify
-    firefox
     pkgs.networkmanagerapplet
     unzip
     greetd.greetd
@@ -156,18 +146,16 @@
     wget
     swaybg
     # hyprpaper
-    pkgs.home-manager
     mangohud
-    protonup
+    protonup-ng
     #pkgs.pulseaudio
     pkgs.nix-search-cli
     # pkgs.xwaylandvideobridge
     pkgs.xdg-desktop-portal-wlr
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
     pkgs.xdg-desktop-portal
     pkgs.cmake
     pkgs.feh
-    pkgs.eww
     pkgs.nerd-fonts.iosevka
     pkgs.nerd-fonts.iosevka-term
     pkgs.nerd-fonts.comic-shanns-mono
@@ -176,8 +164,8 @@
     pkgs.icu
     pkgs.swayidle
     pkgs.kanshi
-    pkgs.java-language-server
     alejandra
+    clang-tools
     # pkgs.nerd-fonts.fira-code
     # pkgs.niri-stable
   ];
@@ -208,6 +196,11 @@
       "plymouth.use-simpledrm"
     ];
   };
+
+  programs.firefox = {
+    enable = true;
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -220,7 +213,7 @@
   # programs.niri.settings = {
   # };
 
-  programs.river.enable = true;
+  programs.river-classic.enable = true;
 
   programs.hyprland = {
     enable = false;
@@ -242,6 +235,8 @@
     xorg.libxcb
     xorg.libXi
     libxkbcommon
+    stdenv.cc.cc
+    libGL
   ];
 
   environment.sessionVariables = {
@@ -317,11 +312,17 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   xdg.portal.enable = true;
+  xdg.portal.xdgOpenUsePortal = true;
   xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-wlr
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
     pkgs.xdg-desktop-portal
+    pkgs.xdg-desktop-portal-wlr
   ];
+  xdg.mime.defaultApplications = {
+
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+  };
 
   #sound.enable = true;
   security.rtkit.enable = true;

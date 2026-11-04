@@ -5,7 +5,7 @@
   ...
 }:
 let
-  riverctl = "${pkgs.river}/bin/riverctl";
+  riverctl = "${pkgs.river-classic}/bin/riverctl";
 in
 {
   xdg.configFile = {
@@ -34,6 +34,7 @@ in
         # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
         ${riverctl} map normal Super Q spawn kitty
         ${riverctl} map normal Super S spawn fuzzel
+        ${riverctl} map normal Super Tab spawn firefox
 
         # Super+Q to close the focused view
         ${riverctl} map normal Super+Shift C close
@@ -190,10 +191,11 @@ in
         ${riverctl} spawn nm-applet
         # ${riverctl} map normal Super Tab spawn "bash ~/.config/eww/scripts/toggle.sh"
         ${riverctl} map normal Super+Shift S spawn 'grim -g "$(slurp -d)" - | wl-copy'
+        ${riverctl} map normal Super+Shift V spawn 'wf-recorder -g "$(slurp)" -f /tmp/recording.mp4'
         ${riverctl} spawn "swayidle -w timeout 300 'swaylock -f -c 000000'"
         ${riverctl} spawn "kanshi"
         # ${riverctl} xcursor-theme ${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}
-        systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+        XDG_CURRENT_DESKTOP=river systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
         dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
         systemctl --user restart xdg-desktop-portal
 

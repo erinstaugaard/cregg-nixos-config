@@ -7,65 +7,76 @@
     niri.url = "github:sodiboo/niri-flake";
     ssbm-nix.url = "github:normalfall/ssbm-nix";
     frc-nix.url = "github:frc4451/frc-nix";
+    nixvim.url = "github:nix-community/nixvim";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
 
-      config = {
-        allowUnfree = true;
+        config = {
+          allowUnfree = true;
+        };
       };
-    };
-  in {
-    # homeConfigurations."churst" = home-manager.lib.homeManagerConfiguration {
-    #   inherit pkgs;
-    #   modules = [
-    #     ./home.nix
-    #     inputs.stylix.homeManagerModules.stylix
-    #   ];
-    # };
-    nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = inputs;
-
+    in
+    {
+      homeConfigurations."churst" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
         modules = [
-          inputs.stylix.nixosModules.stylix
-          inputs.niri.nixosModules.niri
-          ./nixos/configuration.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.backupFileExtension = "hm-backup";
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.churst = import ./home.nix;
-          }
+          inputs.stylix.homeManagerModules.stylix
+          inputs.nixvim.homeModules.nixvim
+          ./common.nix
+          ./home.nix
         ];
       };
-      # live = nixpkgs.lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   modules = [
-      #     ./isoimage.nix
-      #     ./nixos/configuration.nix
-      #     inputs.stylix.nixosModules.stylix
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
+          specialArgs = inputs;
 
-      #     home-manager.nixosModules.home-manager {
-      #       home-manager.backupFileExtension = "hm-backup";
-      #       home-manager.useGlobalPkgs = true;
-      #       home-manager.users.churst = import ./home.nix;
-      #     }
-      #   ];
-      # };
+          modules = [
+            ./wiregaurd.nix
+            inputs.stylix.nixosModules.stylix
+            inputs.niri.nixosModules.niri
+            ./common.nix
+            ./nixos/configuration.nix
+            inputs.sops-nix.nixosModules.sops
+
+            # home-manager.nixosModules.home-manager
+            # {
+            #   home-manager.backupFileExtension = "hm-backup";
+            #   home-manager.useGlobalPkgs = true;
+            #   home-manager.users.churst = import ./home.nix;
+            # }
+          ];
+        };
+        # live = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   modules = [
+        #     ./isoimage.nix
+        #     ./nixos/configuration.nix
+        #     inputs.stylix.nixosModules.stylix
+
+        #     home-manager.nixosModules.home-manager {
+        #       home-manager.backupFileExtension = "hm-backup";
+        #       home-manager.useGlobalPkgs = true;
+        #       home-manager.users.churst = import ./home.nix;
+        #     }
+        #   ];
+        # };
+      };
     };
-  };
 }
